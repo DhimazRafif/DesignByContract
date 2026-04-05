@@ -4,10 +4,27 @@ public class Program
 {
     public static void Main(string[] args)
     {
-        SayaTubeVideo film1 = new SayaTubeVideo("Tutorial Design By Contract - Dhimaz Rafif Hanafi");
+        try
+        {
+            //benar
+            SayaTubeVideo film1 = new SayaTubeVideo("DesignByContract - Dhimaz Rafif Hanafi");
+            //salah
+            SayaTubeVideo film2 = new SayaTubeVideo(new string('-',101));
 
-        film1.PrintVideoDetails();
-        film1.IncreasePlayCount(12);
-        film1.PrintVideoDetails();
+            film1.PrintVideoDetails();
+            //benar
+            film1.IncreasePlayCount(12);
+
+            //salah
+            film1.IncreasePlayCount(12000000);
+
+            film1.PrintVideoDetails();
+
+        }
+        catch (Exception ex) 
+        { 
+            Console.WriteLine(ex.ToString());
+        }
+
     }
 }

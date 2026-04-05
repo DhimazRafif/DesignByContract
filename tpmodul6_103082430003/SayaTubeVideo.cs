@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Text;
 
 namespace tpmodul6_103082430003
@@ -12,6 +13,13 @@ namespace tpmodul6_103082430003
 
         public SayaTubeVideo(string title)
         {
+            //prekondisi
+            if(title == null || title.Length > 100)
+            {
+                throw new ArgumentException("Judul tidak boleh kosong dan maksimal panjang judul 100 karakter");
+
+            }
+            //Debug.Assert(title != null&&title.Length<100,"Judul tidak boleh kosong dan maksimal panjang judul 100 karakter");
             this.title = title;
             this.playCount = 0;
 
@@ -22,8 +30,22 @@ namespace tpmodul6_103082430003
 
         public void IncreasePlayCount(int plusCount)
         {
-            int hasil = playCount + plusCount;
-            playCount = hasil;
+            //prekondisi
+            if (plusCount > 10000000)
+                throw new ArgumentOutOfRangeException("Maksimal nominal penambahan adalah 10.000.000");
+            //Debug.Assert(plusCount<10000000,"Maksimal nominal penambahan adalah 10.000.000");
+
+            try
+            {
+                checked
+                {
+                    this.playCount += plusCount;
+                }
+            }
+            catch (OverflowException)
+            {
+                Console.WriteLine("Error : error overflow penambahan melebihi batas integer");
+            }
         }
 
         public void PrintVideoDetails()
